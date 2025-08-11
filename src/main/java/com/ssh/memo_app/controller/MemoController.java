@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class MemoController {
-
     private final MemoRepository memoRepository;
 
     public MemoController(MemoRepository memoRepository) {
@@ -20,27 +19,28 @@ public class MemoController {
 
     @GetMapping("/")
     public String listMemos(Model model) {
-        model.addAttribute("memos", memoRepository.findAll()); //memos 라고 그냥 지어주는 것
+        model.addAttribute("memos", memoRepository.findAll());
 
         return "memo-list";
-    } //기본 페이지
+    }
 
     @GetMapping("/edit/{id}")
     public String editForm(
             @PathVariable int id,
             Model model
     ) {
-        model.addAttribute("memo", memoRepository.findById(id)); //id는 PathVariable 로 받아옴
+        model.addAttribute("memo", memoRepository.findById(id));
+
         return "memo-edit";
     }
 
-
-    @PostMapping("/add")  //Repository- save에 필요한 인자를 여기서 받아옴
-    public String addMemo(
+    @PostMapping("/add")
+    public String addMemo( //Repository- save에 필요한 인자를 여기서 받아옴
             @RequestParam String title,
             @RequestParam String content
     ) {
         memoRepository.save(title, content);
+
         return "redirect:/";
     }
 
@@ -50,16 +50,16 @@ public class MemoController {
             @RequestParam String title,
             @RequestParam String content
     ) {
-        memoRepository.update(id, title, content);
+        memoRepository.update(id,title, content);
 
-        return "redirect:/";
+        return "redirect:/"; //edit에서 메인으로 다시 ㄱㄱ
     }
-
 
     @PostMapping("/delete")
     public String deleteMemo(@RequestParam int id) {
         memoRepository.delete(id);
+
         return "redirect:/";
+        //삭제를 할 시에는 고유한 값으로 삭제해야되기때문에 id로 설정하고 삭제해야됨
     }
-    //삭제를 할 시에는 고유한 값으로 삭제해야되기때문에 id로 설정하고 삭제해야됨
 }

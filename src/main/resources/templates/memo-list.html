@@ -1,26 +1,26 @@
+
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>메모장</title>
-    <link rel="stylesheet" th:href="@{styles.css}"/>
-
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/styles.css}"/>
 </head>
 <body>
-<h1>간단한 메모장</h1>
-
-<form th:action="@{/add}" method="post">
-    <input type="text" name="title" placeholder="제목을 입력해주세요" required/>
-    <!--    name = requestparam 과 동일하게 작성할 것 -->
-    <br/>   <!--    br 엔터키 효과 줄바꿈-->
-    <textarea name="content" placeholder="내용을 입력해주세요" required></textarea>
-    <!--textarea 여러줄 입력하게 해주는 input-->
+<h1>간단 메모장</h1>
+<!--    name = requestparam 과 동일하게 작성할 것 -->
+<!--    br 엔터키 효과 줄바꿈-->
+<!--textarea 여러줄 text 를 입력하게 해주는 input란 => input 란이 커보임-->
+<form class="add-form" th:action="@{/add}" method="post">
+    <input type="text" name="title" placeholder="제목을 입력하세요" required/>
     <br/>
-    <button type="submit"> 메모 추가</button>
+    <textarea name="content" placeholder="내용을 입력하세요" required></textarea>
+    <br/>
+    <button type="submit">메모 추가</button>
 </form>
 
 <ul>
-    <li th:each="memo:${memos}">
+    <li th:each="memo: ${memos}">
         <div>
             <h3 th:text="${memo.title}"></h3>
             <p th:text="${memo.content}"></p>
@@ -33,12 +33,7 @@
                 <button type="submit">삭제</button>
             </form>
         </div>
-
-
-
     </li>
 </ul>
-
-
 </body>
 </html>
